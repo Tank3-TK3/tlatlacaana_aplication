@@ -37,5 +37,33 @@ class Scanner():
     port_range = "" #Port range.
     port_result = {} #Port scan result.
     
+    def __init__(self):
+        self.operating_system = platform.system()
+        self.computer_name = socket.gethostname()
 
+    def test_connection(self):
+        if self.operating_system is "Windows":
+            if os.system("ping -n 1 " + self.host_ip) is 0:
+                self.ping_result = True
+            else:
+                self.ping_result = False
+        else:
+            if os.system("ping -c 1 " + self.host_ip) is 0:
+                self.ping_result = True
+            else:
+                self.ping_result = False
+        return self.ping_result
+
+    def trace_connection(self):
+        if self.operating_system is "Windows":
+            if self.test_connection() is True:
+                self.trace_result = os.popen("tracert " + self.host_ip).read()
+            else:
+                self.trace_result = ">>>Destination host not accessible<<<"
+        else:
+            if  self.test_connection() is True:
+                self.trace_result = os.popen("tracerout " + self.host_ip).read()
+            else:
+                self.trace_result = ">>>Destination host not accessible<<<"
+        return self.trace_result
 ################################################################################
