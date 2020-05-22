@@ -1,2 +1,2 @@
-# tlatlacaana_aplication
-A pseudo IP and port scanner.
+# Tlatlacaana Aplication
+Recognition software and scan ip and ports.
