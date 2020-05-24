@@ -26,18 +26,14 @@ import dns.resolver #DNS toolkit for Python.
 ################################################################################
 #                   CLASS
 
-class Scanner():
+class TlatlacaanaApplication():
     operating_system = "" #Computer operating system.
     computer_name = "" #Computer name.
     ping_result = False #Ping result.
     trace_result = "" #Trace result.
-    ip_scan = {} #Ip scanner result. (Key = str and value = bool)
+    ip_scan = {} #Ip scanner result.
     host_dns = "" #DNS of the target.
-    port_range = "" #Port range.
     port_result = {} #Port scan result.
-    #ip_min = Minimum ip to scan
-    #ip_max = Maximum ip to scan
-    #host_ip = Host ip to scan.
     
     def __init__(self):
         self.operating_system = platform.system()
@@ -97,4 +93,15 @@ class Scanner():
                 else:
                     return self.ip_scan
         return self.ip_scan
+
+    def port_finder(self, host_ip, port_min, port_max):
+        for current_port in range(port_min, port_max+1):
+            ruling = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            ruling.settimeout(1.0)
+            ruling = ruling.connect_ex((host_ip, current_port))
+            if ruling == 0:
+                self.port_result[current_port] = True
+            else:
+                self.port_result[current_port] = False
+        return self.port_result
 ################################################################################
