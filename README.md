@@ -7,7 +7,7 @@ Coded by:
 - Ernesto Adán Zurbía Flores Vivero. zurbianeto@gmail.com
 
 ## SUMMARY
-The project presented here seeks to be a friendly tool with the trained user, capable of doing IP and port recognition. In the recognition phase of a computer security audit we find very useful and powerful tools, but not very friendly, that is why our project focuses on bringing a useful and easy-to-use tool kit for the user as well as having a interface in which all the tools and information obtained will be displayed.
+The project presented here seeks to be a friendly tool with the trained user, capable of doing IP and port recognition. In the recognition phase of a computer security audit we find very useful and powerful tools, but not very friendly, that is why our project focuses on bringing a useful and easy-to-use tool kit for the user as well as having an interface in which all the tools and information obtained will be displayed.
 
 This software will have 5 main functionalities:
  1. Test Connection
