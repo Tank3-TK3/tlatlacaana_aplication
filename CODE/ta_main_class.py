@@ -32,12 +32,15 @@ class TlatlacaanaApplication():
     ping_result = False #Ping result.
     trace_result = "" #Trace result.
     ip_scan = {} #Ip scanner result.
-    host_dns = "" #DNS of the target.
-    port_result = {} #Port scan result.
+    port_result = False #Port result.
+    port_scan = {} #Port scan result.
     
     def __init__(self):
         self.operating_system = platform.system()
         self.computer_name = socket.gethostname()
+
+    def dns_to_ip(self, host_dns):
+        return socket.gethostbyname(host_dns)
 
     def test_connection(self, host_ip):
         if self.operating_system is "Windows":
@@ -94,14 +97,29 @@ class TlatlacaanaApplication():
                     return self.ip_scan
         return self.ip_scan
 
-    def port_finder(self, host_ip, port_min, port_max):
-        for current_port in range(port_min, port_max+1):
-            ruling = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            ruling.settimeout(1.0)
-            ruling = ruling.connect_ex((host_ip, current_port))
-            if ruling == 0:
-                self.port_result[current_port] = True
-            else:
-                self.port_result[current_port] = False
+    def check_port(self,host_ip, port):
+        my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        my_socket.settimeout(1.0)
+        ruling = my_socket.connect_ex((host_ip, port))
+        if ruling == 0:
+            self.port_result = True
+        else:
+            self.port_result = False
+        my_socket.close()
         return self.port_result
+
+    def port_finder(self, host_ip, port_min, port_max):
+        for port in range(port_min, port_max+1):
+            self.port_scan[port] = self.check_port(host_ip, port)
+        return self.port_scan
+
+    def get_banner(self, host_ip, port):
+        if self.check_port(host_ip, port) is True:
+            my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            my_socket.connect((host_ip, port))
+            my_socket.send(b'GET /\n\n')
+            banner = str(my_socket.recv(1024)).replace("\\r\\n", "\n")
+        else:
+            banner = ">>>Destination port not accessible<<<"
+        return banner
 ################################################################################
