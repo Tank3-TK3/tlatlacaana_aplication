@@ -10,8 +10,10 @@ Coded by:
 The project presented here seeks to be a friendly tool with the trained user, capable of doing IP and port recognition. In the recognition phase of a computer security audit, we find very useful and powerful tools, but not very friendly, that is why our project focuses on bringing a useful and easy-to-use tool kit for the user as well as having an interface in which all the tools and information obtained will be displayed.
 
 This software will have 5 main functionalities:
- 1. Test Connection
- 2. Trace Connection
- 3. Inquire IP
- 4. Port Finder
- 5. Get Banner
+ 1. DNS to IP
+ 2. Test Connection
+ 3. Trace Connection
+ 4. Inquire IP
+ 5. Check Port
+ 6. Port Finder
+ 7. Get Banner
