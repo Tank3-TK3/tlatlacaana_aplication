@@ -18,9 +18,11 @@
 #                   MODULES
 
 import sys
+import os
+from ta_main_class import TlatlacaanaApplication
 
+pc = TlatlacaanaApplication()
 PYTHON_VERSION = sys.version_info.major ##Identify the installed python version
-
 if PYTHON_VERSION < 3:
     try:
         import Tkinter as tk
@@ -168,7 +170,7 @@ def ClickButton(number):
                             relief="flat",foreground="#d1d1d1")
         ResultBox['font']=font.Font(family="Consolas",size=15)
         version=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                         text="V 1.0.0")
+                         text="v1.0.0")
         version['font']=font.Font(family="Consolas",size=15)
         Ip_label.grid(row=2,column=0,sticky="E")
         space_1.grid(row=1,column=0)
@@ -231,7 +233,7 @@ def ClickButton(number):
                             relief="flat",foreground="#d1d1d1")
          ResultBox['font']=font.Font(family="Consolas",size=15)
          version=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                         text="V 1.0.0")
+                         text="v1.0.0")
          version['font']=font.Font(family="Consolas",size=15)
          IpMin_label.grid(row=2,column=0,sticky="E",pady=10)
          IpMax_label.grid(row=3,column=0,sticky="E")
@@ -312,7 +314,7 @@ def ClickButton(number):
                             relief="flat",foreground="#d1d1d1")
          ResultBox['font']=font.Font(family="Consolas",size=15)
          version=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                         text="V 1.0.0")
+                         text="v1.0.0")
          version['font']=font.Font(family="Consolas",size=15)
          Ip_label.grid(row=2,column=0,sticky="E")
          PortMin_label.grid(row=3,column=0,sticky="E",pady=10)
@@ -349,9 +351,9 @@ def ClickButton(number):
          Nombre_app1=tk.Label(Content_frame, text="TLATLACAANA",bg="#1e1e1e",
                             foreground="#3179cb")
          Nombre_app1['font']=font.Font(family="Consolas",size=40)
-         Nombre_app2=tk.Label(Content_frame, text="App.",bg="#1e1e1e",
+         Nombre_app2=tk.Label(Content_frame, text="ApPlIcAtIoN",bg="#1e1e1e",
                             foreground="#3179cb")
-         Nombre_app2['font']=font.Font(family="Consolas",size=15)
+         Nombre_app2['font']=font.Font(family="Consolas",size=10)
          label1=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
                         text="“Software focused on the recognition phase of a"+ 
                         "computer security audit”")
@@ -360,7 +362,7 @@ def ClickButton(number):
                                 text="Coded by:")
          label2['font']=font.Font(family="Consolas",size=15)
          label3=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                                text="Roberto (Tank3) Cruz Lozano")
+                                text="Roberto (Tank3) Cruz Lozano.")
          label3['font']=font.Font(family="Consolas",size=15)
          label4=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
                                 text="Ernesto (Neto844) Adán Zurbía Flores Vivero.")
@@ -372,7 +374,7 @@ def ClickButton(number):
                         relief="flat",foreground="#d1d1d1")
          Summary['font']=font.Font(family="Consolas",size=15)
          version=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                                text="V 1.0.0")
+                                text="v1.0.0")
          version['font']=font.Font(family="Consolas",size=15)
          Nombre_app1.grid(row=0,column=0)
          Nombre_app2.grid(row=0,column=0, sticky="SE",padx=190)
@@ -403,31 +405,28 @@ root.resizable(0,0)
 root.bind("<Map>", on_deiconify)
 root.overrideredirect(True)
 
-
-
 ##################################MENU#########################################
-
 Menu= tk.LabelFrame(root,bg="#252526",
                     width=300,height=700,bd=0)
 Menu.grid(row=1,column=0,sticky="nw")
 Menu.grid_propagate(False)
 Option_1= tk.Button(Menu,text=" IP SCANER  ", bd=0, height=3, 
                   width=10,command=lambda :ClickButton("1"))
-photo_option_1 = tk.PhotoImage(file = r"Scan.png") 
+photo_option_1 = tk.PhotoImage(file=(os.path.dirname(__file__)+"/Scan.png")) 
 photo_option_1 = photo_option_1.subsample(8,6) 
 Option_1.config(image=photo_option_1, width=300,height=100, compound="left")
 Option_1['font']=font.Font(family="Consolas",size=25)
 
 Option_2= tk.Button(Menu,text="  IP RANGE   ", bd=0, height=3, 
                   width=10,command=lambda :ClickButton("2"))
-photo_option_2 = tk.PhotoImage(file = "Iprange.png") 
+photo_option_2 = tk.PhotoImage(file=(os.path.dirname(__file__)+"/Iprange.png")) 
 photo_option_2 = photo_option_2.subsample(10,10) 
 Option_2.config(image=photo_option_2, width=300,height=100, compound="left")
 Option_2['font']=font.Font(family="Consolas",size=25)
 
 Option_3= tk.Button(Menu,text=" PORT FINDER", bd=0, height=3, 
                   width=10, anchor="w",command=lambda :ClickButton("3"))
-photo_option_3 = tk.PhotoImage(file = r"Port_finder.png") 
+photo_option_3 = tk.PhotoImage(file=(os.path.dirname(__file__)+"/Port_finder.png")) 
 photo_option_3 = photo_option_3.subsample(4,4) 
 Option_3.config(image=photo_option_3, width=300,height=100, compound="left")
 Option_3['font']=font.Font(family="Consolas",size=25)
@@ -500,7 +499,7 @@ app1=tk.Button(Top_bar, text="TLATLACAANA",bg="#333333",height=1,
                     command=lambda:ClickButton("4"))
 app1['font']=font.Font(family="Consolas",size=15)
 Op_System=tk.Label(Top_bar,bg="#333333",foreground="#d1d1d1",
-                         text="Current OP System:")
+                    text="Current OP System: ")
 Op_System['font']=font.Font(family="Consolas",size=10)
 Computer=tk.Label(Top_bar,bg="#333333",foreground="#d1d1d1",
                          text="Computer Name:")
@@ -549,9 +548,6 @@ Computer_entry.bind("<ButtonPress-1>",start_move)
 Computer_entry.bind("<ButtonRelease-1>",stop_move)
 Computer_entry.bind("<B1-Motion>",on_move)
 
-
-
-
 ##############################CONTENT_FRAME####################################
 Content_frame= tk.LabelFrame(root,width=900,height=700,bd=0,bg="#1e1e1e")
 Content_frame.grid_propagate(False)
@@ -559,9 +555,9 @@ Content_frame.grid(row=1,column=1)
 Nombre_app1=tk.Label(Content_frame, text="TLATLACAANA",bg="#1e1e1e",
                     foreground="#3179cb")
 Nombre_app1['font']=font.Font(family="Consolas",size=40)
-Nombre_app2=tk.Label(Content_frame, text="App.",bg="#1e1e1e",
+Nombre_app2=tk.Label(Content_frame, text="ApPlIcAtIoN",bg="#1e1e1e",
                     foreground="#3179cb")
-Nombre_app2['font']=font.Font(family="Consolas",size=15)
+Nombre_app2['font']=font.Font(family="Consolas",size=10)
 label1=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
                 text="“Software focused on the recognition phase of a"+ 
                 "computer security audit”")
@@ -570,7 +566,7 @@ label2=tk.Label(Content_frame,bg="#1e1e1e",foreground="#3179cb",
                          text="Coded by:")
 label2['font']=font.Font(family="Consolas",size=15)
 label3=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                         text="Roberto (Tank3) Cruz Lozano")
+                         text="Roberto (Tank3) Cruz Lozano.")
 label3['font']=font.Font(family="Consolas",size=15)
 label4=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
                          text="Ernesto (Neto844) Adán Zurbía Flores Vivero.")
@@ -582,7 +578,7 @@ Summary=tk.Text(Content_frame,height=12,width=61,bg="#1e1e1e",
                  relief="flat",foreground="#d1d1d1")
 Summary['font']=font.Font(family="Consolas",size=15)
 version=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                         text="V 1.0.0")
+                         text="v1.0.0")
 version['font']=font.Font(family="Consolas",size=15)
 Nombre_app1.grid(row=0,column=0)
 Nombre_app2.grid(row=0,column=0, sticky="SE",padx=190)
@@ -602,8 +598,5 @@ Summary.insert(tk.INSERT,"The project presented here seeks to be a friendly"+
               "well as having an \ninterface in which all the tools and "+
               "information obtained \nwill be displayed.")
 Summary.config(state="disabled")
-
-
-
 
 root.mainloop()
