@@ -308,7 +308,10 @@ def ClickButton(number):
                      tk.messagebox.showerror(title="PORT FINDER FAILURE", message="ERROR: Not allowed values")
                  ResultBox.config(state="disable")
              else:
-                 ResultBox.insert(tk.INSERT,(pc.get_banner(Ip_entry.get(), int(PortBanner_entry.get()))))
+                 try:
+                     ResultBox.insert(tk.INSERT,(pc.get_banner(Ip_entry.get(), int(PortBanner_entry.get()))))
+                 except:
+                     tk.messagebox.showerror(title="PORT FINDER FAILURE", message="ERROR: Not allowed values")
                  ResultBox.config(state="disable")
          def on_enter4(e):
              Ip_button['background'] = '#404047'
@@ -413,7 +416,7 @@ def ClickButton(number):
                             foreground="#3179cb")
          Nombre_app2['font']=font.Font(family="Consolas",size=10)
          label1=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                        text="“Software focused on the recognition phase of a"+ 
+                        text="“Software focused on the recognition phase of a "+ 
                         "computer security audit”")
          label1['font']=font.Font(family="Consolas",size=15)
          label2=tk.Label(Content_frame,bg="#1e1e1e",foreground="#3179cb",
@@ -423,7 +426,7 @@ def ClickButton(number):
                                 text="Roberto (Tank3) Cruz Lozano.")
          label3['font']=font.Font(family="Consolas",size=15)
          label4=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                                text="Ernesto (Neto844) Adán Zurbía Flores Vivero.")
+                                text="Ernesto Adán (Neto844) Zurbía Flores Vivero.")
          label4['font']=font.Font(family="Consolas",size=15)
          label5=tk.Label(Content_frame,bg="#1e1e1e",foreground="#3179cb",
                                 text="Summary:")
@@ -632,7 +635,7 @@ Nombre_app2=tk.Label(Content_frame, text="ApPlIcAtIoN",bg="#1e1e1e",
                     foreground="#3179cb")
 Nombre_app2['font']=font.Font(family="Consolas",size=10)
 label1=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                text="“Software focused on the recognition phase of a"+ 
+                text="“Software focused on the recognition phase of a "+ 
                 "computer security audit”")
 label1['font']=font.Font(family="Consolas",size=15)
 label2=tk.Label(Content_frame,bg="#1e1e1e",foreground="#3179cb",
@@ -642,7 +645,7 @@ label3=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
                          text="Roberto (Tank3) Cruz Lozano.")
 label3['font']=font.Font(family="Consolas",size=15)
 label4=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                         text="Ernesto (Neto844) Adán Zurbía Flores Vivero.")
+                         text="Ernesto Adán (Neto844) Zurbía Flores Vivero.")
 label4['font']=font.Font(family="Consolas",size=15)
 label5=tk.Label(Content_frame,bg="#1e1e1e",foreground="#3179cb",
                          text="Summary:")

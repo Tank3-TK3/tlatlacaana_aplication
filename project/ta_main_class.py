@@ -110,6 +110,7 @@ class TlatlacaanaApplication():
         return self.port_result
 
     def port_finder(self, host_ip, port_min, port_max):
+        self.port_scan = {}
         for port in range(port_min, port_max+1):
             self.port_scan[port] = self.check_port(host_ip, port)
         return self.port_scan
