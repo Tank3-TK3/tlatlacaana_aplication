@@ -71,6 +71,7 @@ class TlatlacaanaApplication():
     def inquire_ip(self, ip_min, ip_max):
         current_ip = ip_min.split(".")
         ip_max = ip_max.split(".")
+        self.ip_scan = {}
         flag = True
         while flag:
             key_ip = ".".join(current_ip)

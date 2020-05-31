@@ -19,6 +19,7 @@
 
 import sys
 import os
+import time
 from ta_main_class import TlatlacaanaApplication
 
 pc = TlatlacaanaApplication()
@@ -28,7 +29,7 @@ if PYTHON_VERSION < 3:
         import Tkinter as tk
         import Tkinter.scrolledtext as scrolledtext
         import Tkinter.font as font
-
+        from Tkinter import messagebox
     except ImportError:
         raise ImportError("Se requiere el modulo Tkinter")
 else:
@@ -36,6 +37,7 @@ else:
         import tkinter as tk
         import tkinter.scrolledtext as scrolledtext
         import tkinter.font as font
+        from tkinter import messagebox
     except ImportError:
         raise ImportError("Se requiere el modulo tkinter")
 ##We ensure that the user has the tkinder module installed
@@ -128,9 +130,31 @@ def ClickButton(number):
         Option_2.config(bg="#252526")
         Option_3.config(bg="#252526")
 
-
         for widget in Content_frame.winfo_children():
             widget.destroy()
+        def Click(option):
+            ResultBox.config(state="normal")
+            ResultBox.delete('1.0',tk.END)
+            ResultBox.insert(tk.INSERT,"The operation is in progress"+
+                                    " please wait")
+            time.sleep(1.0)
+            if option=="1":
+                ResultBox.delete('1.0',tk.END)
+                Ping=pc.test_connection(Ip_entry.get())
+                if Ping==True:
+                    ResultBox.insert(tk.INSERT,"The ip address has"+
+                    " responded successfully")
+                    ResultBox.config(state="disabled")
+                elif Ping==False:
+                    ResultBox.insert(tk.INSERT,"The ip address did not"+
+                    " respond, try another ip \naddress")
+                    ResultBox.config(state="disabled")
+            else:
+                Ping=pc.trace_connection(Ip_entry.get())
+                ResultBox.delete('1.0',tk.END)
+                ResultBox.insert(tk.INSERT,Ping)
+                ResultBox.config(state="disabled")
+
 
         def on_enter4(e):
             Ip_button['background'] = '#404047'
@@ -157,18 +181,20 @@ def ClickButton(number):
         Ip_button=tk.Button(Content_frame,bg="#37373d",text="Trace Route",
                             foreground="#d1d1d1",width=10,relief="flat",
                             activebackground="#373742",bd=0,
-                            activeforeground="#d1d1d1")
+                            activeforeground="#d1d1d1",
+                            command=lambda:Click("2"))
         Ip_button['font']=font.Font(family="Consolas",size=10)
         Ip_button2=tk.Button(Content_frame,bg="#37373d",text="Ping",width=10,
                             foreground="#d1d1d1",relief="flat",bd=0,
                             activebackground="#373742",
-                            activeforeground="#d1d1d1")
+                            activeforeground="#d1d1d1"
+                            ,command=lambda:Click("1"))
         Ip_button2['font']=font.Font(family="Consolas",size=10)
         space_2=tk.Label(Content_frame,height=5,bg="#1e1e1e")
         ResultBox=scrolledtext.ScrolledText(Content_frame,
-                            height=12,width=44,bg="#121212",
+                            height=20,width=80,bg="#121212",
                             relief="flat",foreground="#d1d1d1")
-        ResultBox['font']=font.Font(family="Consolas",size=15)
+        ResultBox['font']=font.Font(family="Consolas",size=10)
         version=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
                          text="v1.0.0")
         version['font']=font.Font(family="Consolas",size=15)
@@ -179,7 +205,7 @@ def ClickButton(number):
         Ip_button2.grid(row=3,column=2,pady=10,sticky="E",padx=5)
         Ip_button.grid(row=3,column=3,pady=10,sticky="w",padx=10)
         ResultBox.grid(row=5,column=0,columnspan=4,sticky="e", padx=55)
-        version.grid(row=6,column=5,pady=33,padx=72)
+        version.grid(row=6,column=5,pady=13,padx=72)
         space_2.grid(row=4,column=1)
         ResultBox.config(state="disabled")
 
@@ -197,6 +223,20 @@ def ClickButton(number):
 
          for widget in Content_frame.winfo_children():
             widget.destroy()
+
+         def Click():
+            try:
+                ResultBox.config(state="normal")
+                ResultBox.delete('1.0',tk.END)
+                range_ip = pc.inquire_ip(IpMin_entry.get(),IpMax_entry.get())
+                ResultBox.insert(tk.INSERT,("<<IP scan result>>\n"))
+                for x, y in range_ip.items():
+                    outcome = "IP: "+str(x)+" Outcome: "+str(y)+"\n"
+                    ResultBox.insert(tk.INSERT,(outcome))
+                ResultBox.config(state="disabled")
+            except:
+                tk.messagebox.showerror(title="IP SACN FAILURE",
+                                    message="ERROR: Not allowed values")
 
          def on_enter4(e):
              Ip_button['background'] = '#404047'
@@ -225,7 +265,8 @@ def ClickButton(number):
          Ip_button=tk.Button(Content_frame,bg="#37373d",text="Ping",
                             foreground="#d1d1d1",width=10,relief="flat",
                             activebackground="#373742",bd=0,
-                            activeforeground="#d1d1d1")
+                            activeforeground="#d1d1d1",
+                            command=lambda:Click())
          Ip_button['font']=font.Font(family="Consolas",size=10)
          space_2=tk.Label(Content_frame,height=3,bg="#1e1e1e")
          ResultBox=scrolledtext.ScrolledText(Content_frame,height=12,
@@ -244,7 +285,7 @@ def ClickButton(number):
          Ip_button.grid(row=4,column=3,pady=10,sticky="e",padx=50)
          ResultBox.grid(row=6,column=0,columnspan=4,sticky="e", padx=55)
          version.grid(row=7,column=4,pady=14,padx=44)
-
+         ResultBox.config(state="disabled")
          space_2.grid(row=5,column=1)
          Ip_button.bind("<Enter>", on_enter4)
          Ip_button.bind("<Leave>", on_leave4)         
@@ -253,11 +294,26 @@ def ClickButton(number):
          Option_3.config(bg="#094771")
          Option_1.config(bg="#252526")
          Option_2.config(bg="#252526")
+         def Click(option):
+             ResultBox.config(state="normal")
+             ResultBox.delete('1.0',tk.END)
+             if option=="1":
+                 try:
+                     dic_port = pc.port_finder(Ip_entry.get(), int(PortMin_entry.get()), int(PortMax_entry.get()))
+                     ResultBox.insert(tk.INSERT,("<<<Scan Port Result>>>\n"))
+                     for x, y in dic_port.items():
+                         outcome = "Port: "+str(x)+" Outcome: "+str(y)+"\n"
+                         ResultBox.insert(tk.INSERT,(outcome))
+                 except:
+                     tk.messagebox.showerror(title="PORT FINDER FAILURE", message="ERROR: Not allowed values")
+                 ResultBox.config(state="disable")
+             else:
+                 ResultBox.insert(tk.INSERT,(pc.get_banner(Ip_entry.get(), int(PortBanner_entry.get()))))
+                 ResultBox.config(state="disable")
          def on_enter4(e):
              Ip_button['background'] = '#404047'
          def on_leave4(e):
              Ip_button['background'] = '#37373d'
-
          def on_enter5(e):
              Banner_button['background'] = '#404047'
          def on_leave5(e):
@@ -301,18 +357,20 @@ def ClickButton(number):
          Ip_button=tk.Button(Content_frame,bg="#37373d",text="Get Ports",
                             foreground="#d1d1d1",width=10,relief="flat",
                             activebackground="#373742",bd=0,
-                            activeforeground="#d1d1d1")
+                            activeforeground="#d1d1d1",
+                            command=lambda:Click("1"))
          Ip_button['font']=font.Font(family="Consolas",size=10)
          Banner_button=tk.Button(Content_frame,bg="#37373d",text="Get Banner",
                             foreground="#d1d1d1",width=10,relief="flat",
                             activebackground="#373742",bd=0,
-                            activeforeground="#d1d1d1")
+                            activeforeground="#d1d1d1",
+                            command=lambda:Click("2"))
          Banner_button['font']=font.Font(family="Consolas",size=10)
          space_2=tk.Label(Content_frame,height=1,bg="#1e1e1e")
          ResultBox=scrolledtext.ScrolledText(Content_frame,
-                            height=12,width=50,bg="#121212",
+                            height=18,width=80,bg="#121212",
                             relief="flat",foreground="#d1d1d1")
-         ResultBox['font']=font.Font(family="Consolas",size=15)
+         ResultBox['font']=font.Font(family="Consolas",size=10)
          version=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
                          text="v1.0.0")
          version['font']=font.Font(family="Consolas",size=15)
@@ -329,7 +387,7 @@ def ClickButton(number):
          Banner_button.grid(row=7,column=3,pady=10,sticky="e",padx=50)
          Ip_button.grid(row=5,column=3,pady=10,sticky="e",padx=50)
          ResultBox.grid(row=9,column=0,columnspan=4,sticky="e", padx=55)
-         version.grid(row=10,column=4,pady=5,padx=44)
+         version.grid(row=10,column=4,pady=12,padx=44)
 
          space_2.grid(row=8,column=1)
 
@@ -394,7 +452,18 @@ def ClickButton(number):
                     "well as having an \ninterface in which all the tools and "+
                     "information obtained \nwill be displayed.")
          Summary.config(state="disabled")
-         
+    
+    elif number == "5":
+        try:
+            IpResult.config(state="normal")
+            IpResult.delete('1.0',tk.END)
+            IpResult.insert(tk.INSERT,pc.dns_to_ip(DNS_entry.get()))
+            IpResult.config(state="disabled")
+        except:
+            tk.messagebox.showerror(title="DNS INCORRECT",
+                                    message="The domain"+
+                                    "name is incorrect "+
+                                    "please enter a new dns")
     else:
         return
 
@@ -449,7 +518,8 @@ DNS_entry['font']=font.Font(family="Consolas",size=10)
 GetIp_button=tk.Button(Menu,bg="#37373d",text="Get Ip",
                             foreground="#d1d1d1",width=10,relief="flat",
                             activebackground="#373742",bd=0,
-                            activeforeground="#d1d1d1")
+                            activeforeground="#d1d1d1",
+                            command=lambda:ClickButton("5"))
 GetIp_button['font']=font.Font(family="Consolas",size=10)
 Ip_label=tk.Label(Menu,bg="#252526",foreground="#d1d1d1",
                          text="Ip obtained: ")
@@ -518,6 +588,9 @@ Op_System.grid(row=0,column=1,sticky="w")
 Op_System_entry.grid(row=0,column=1,sticky="w",padx=133)
 Computer_entry.grid(row=0,column=1,sticky="e",padx=200)
 Computer.grid(row=0,column=1,)
+
+Op_System_entry.insert(tk.INSERT,pc.operating_system)
+Computer_entry.insert(tk.INSERT,pc.computer_name)
 Op_System_entry.config(state="disabled")
 Computer_entry.config(state="disabled")
 
