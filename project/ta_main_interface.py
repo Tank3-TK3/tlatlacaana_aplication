@@ -40,632 +40,316 @@ else:
         from tkinter import messagebox
     except ImportError:
         raise ImportError("Se requiere el modulo tkinter")
-##We ensure that the user has the tkinder module installed
-def close():
-     root.destroy()
-
-def minimize():
-     root.withdraw()
-     root.overrideredirect(False)
-     root.iconify()
-
-def on_deiconify(event):
-     root.deiconify()
-     root.overrideredirect(True)
-
+##We ensure that the user has the tkinder module install
 def start_move(event):
-     root._x = event.x
-     root._y = event.y
+    root._x = event.x
+    root._y = event.y
 
 def stop_move(event):
-     root._x = None
-     root._y = None
+    root._x = None
+    root._y = None
 
 def on_move(event):
-     deltax = event.x - root._x
-     deltay = event.y - root._y
-     new_pos = "+{}+{}".format(root.winfo_x() + deltax,root.winfo_y() + deltay)
-     root.geometry(new_pos)
+    deltax = event.x - root._x
+    deltay = event.y - root._y
+    new_pos = "+{}+{}".format(root.winfo_x() + deltax,root.winfo_y() + deltay)
+    root.geometry(new_pos)
 
-def on_enter(e):
-    if Option_1['background']=='#094771':
-        return
-    else:
-        Option_1['background'] = '#37373d'
+def minimizewindow():
+    root.withdraw()
+    root.overrideredirect(False)
+    root.iconify()
 
-def on_leave(e):
-    if Option_1['background']=='#094771':
-        return
-    else:
-        Option_1['background'] = '#252526'
-    
-def on_enter1(e):
-    if Option_2['background']=='#094771':
-        return
-    else:
-        Option_2['background'] = '#37373d'
+def on_deiconify(event):
+    root.deiconify()
+    root.overrideredirect(True)
 
-def on_leave1(e):
-    if Option_2['background']=='#094771':
-        return
-    else:
-        Option_2['background'] = '#252526'
+def ClickMenu(number):
 
-def on_enter2(e):
-    if Option_3['background']=='#094771':
-        return
-    else:
-        Option_3['background'] = '#37373d'
-
-def on_leave2(e):
-    if Option_3['background']=='#094771':
-        return
-    else:
-        Option_3['background'] = '#252526'
-
-def on_enter3(e):
-    GetIp_button['background']='#404047'
-
-def on_leave3(e):
-    GetIp_button['background']='#37373d'
-
-def on_enter4(e):
-    X_button['background']='#e81123'
-
-def on_leave4(e):
-    X_button['background']='#333333'
-
-def on_enter5(e):
-    min_button['background']='#474748'
-
-def on_leave5(e):
-    min_button['background']='#333333'
-
-
-
-
-def ClickButton(number):
     if number=="1":
-        Option_1.config(bg="#094771")
-        Option_2.config(bg="#252526")
-        Option_3.config(bg="#252526")
-
-        for widget in Content_frame.winfo_children():
+        Menu.Option1.self.config(bg="#094771")
+        Menu.Option2.self.config(bg="#252526")
+        Menu.Option3.self.config(bg="#252526")
+        Menu.Option4.self.config(bg="#252526")
+        for widget in Frame.frame.winfo_children():
             widget.destroy()
-        def Click(option):
-            ResultBox.config(state="normal")
-            ResultBox.delete('1.0',tk.END)
-            ResultBox.insert(tk.INSERT,"The operation is in progress"+
-                                    " please wait")
-            time.sleep(1.0)
-            if option=="1":
-                ResultBox.delete('1.0',tk.END)
-                Ping=pc.test_connection(Ip_entry.get())
-                if Ping==True:
-                    ResultBox.insert(tk.INSERT,"The ip address has"+
-                    " responded successfully")
-                    ResultBox.config(state="disabled")
-                elif Ping==False:
-                    ResultBox.insert(tk.INSERT,"The ip address did not"+
-                    " respond, try another ip \naddress")
-                    ResultBox.config(state="disabled")
-            else:
-                Ping=pc.trace_connection(Ip_entry.get())
-                ResultBox.delete('1.0',tk.END)
-                ResultBox.insert(tk.INSERT,Ping)
-                ResultBox.config(state="disabled")
-
-
-        def on_enter4(e):
-            Ip_button['background'] = '#404047'
-        def on_leave4(e):
-             Ip_button['background'] = '#37373d'
-
-        def on_enter5(e):
-            Ip_button2['background'] = '#404047'
-        def on_leave5(e):
-             Ip_button2['background'] = '#37373d'
-
-        Name_option=tk.Label(Content_frame, text="IP_SCANNER  ",bg="#1e1e1e",
-                    foreground="#3179cb",padx=30,pady=10)
-        Name_option.grid_propagate(False)
-        Name_option['font']=font.Font(family="Consolas",size=40)
-        space_1=tk.Label(Content_frame,height=5,bg="#1e1e1e")
-        Ip_label=tk.Label(Content_frame,bg="#1e1e1e",
-                         text="Enter an ip address:",foreground="#d1d1d1")
-        Ip_label['font']=font.Font(family="Consolas",size=15)
-        Ip_entry=tk.Entry(Content_frame,bg="#121212", relief="flat",
-                          insertbackground="#fff",selectbackground="#0764d4"
-                          ,width=20,foreground="#d1d1d1")
-        Ip_entry['font']=font.Font(family="Consolas",size=15)
-        Ip_button=tk.Button(Content_frame,bg="#37373d",text="Trace Route",
-                            foreground="#d1d1d1",width=10,relief="flat",
-                            activebackground="#373742",bd=0,
-                            activeforeground="#d1d1d1",
-                            command=lambda:Click("2"))
-        Ip_button['font']=font.Font(family="Consolas",size=10)
-        Ip_button2=tk.Button(Content_frame,bg="#37373d",text="Ping",width=10,
-                            foreground="#d1d1d1",relief="flat",bd=0,
-                            activebackground="#373742",
-                            activeforeground="#d1d1d1"
-                            ,command=lambda:Click("1"))
-        Ip_button2['font']=font.Font(family="Consolas",size=10)
-        space_2=tk.Label(Content_frame,height=5,bg="#1e1e1e")
-        ResultBox=scrolledtext.ScrolledText(Content_frame,
-                            height=20,width=80,bg="#121212",
-                            relief="flat",foreground="#d1d1d1")
-        ResultBox['font']=font.Font(family="Consolas",size=10)
-        version=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                         text="v1.0.0")
-        version['font']=font.Font(family="Consolas",size=15)
-        Ip_label.grid(row=2,column=0,sticky="E")
-        space_1.grid(row=1,column=0)
-        Name_option.grid(row=0,column=0)
-        Ip_entry.grid(row=2,column=1,sticky="E",padx=50,columnspan=3)
-        Ip_button2.grid(row=3,column=2,pady=10,sticky="E",padx=5)
-        Ip_button.grid(row=3,column=3,pady=10,sticky="w",padx=10)
-        ResultBox.grid(row=5,column=0,columnspan=4,sticky="e", padx=55)
-        version.grid(row=6,column=5,pady=13,padx=72)
-        space_2.grid(row=4,column=1)
-        ResultBox.config(state="disabled")
-
-        Ip_button.bind("<Enter>", on_enter4)
-        Ip_button.bind("<Leave>", on_leave4)
-        Ip_button2.bind("<Enter>", on_enter5)
-        Ip_button2.bind("<Leave>", on_leave5)
-
-
+        Frame.Ipscanner()
     elif number=="2":
-         Option_2.config(bg="#094771")
-         Option_1.config(bg="#252526")
-         Option_3.config(bg="#252526")
-
-
-         for widget in Content_frame.winfo_children():
+        Menu.Option1.self.config(bg="#252526")
+        Menu.Option2.self.config(bg="#094771")
+        Menu.Option3.self.config(bg="#252526")
+        Menu.Option4.self.config(bg="#252526")
+        for widget in Frame.frame.winfo_children():
             widget.destroy()
-
-         def Click():
-            try:
-                ResultBox.config(state="normal")
-                ResultBox.delete('1.0',tk.END)
-                range_ip = pc.inquire_ip(IpMin_entry.get(),IpMax_entry.get())
-                ResultBox.insert(tk.INSERT,("<<IP scan result>>\n"))
-                for x, y in range_ip.items():
-                    outcome = "IP: "+str(x)+" Outcome: "+str(y)+"\n"
-                    ResultBox.insert(tk.INSERT,(outcome))
-                ResultBox.config(state="disabled")
-            except:
-                tk.messagebox.showerror(title="IP SACN FAILURE",
-                                    message="ERROR: Not allowed values")
-
-         def on_enter4(e):
-             Ip_button['background'] = '#404047'
-         def on_leave4(e):
-             Ip_button['background'] = '#37373d'
-
-         Name_option=tk.Label(Content_frame, text="IP_RANGE     ",bg="#1e1e1e",
-                    foreground="#3179cb",padx=30,pady=10)
-         Name_option.grid_propagate(False)
-         Name_option['font']=font.Font(family="Consolas",size=40)
-         space_1=tk.Label(Content_frame,height=5,bg="#1e1e1e")
-         IpMin_label=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                         text="Enter a minimum IP address:")
-         IpMin_label['font']=font.Font(family="Consolas",size=15)
-         IpMax_label=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                         text="Enter a maximum IP address:")
-         IpMax_label['font']=font.Font(family="Consolas",size=15)
-         IpMin_entry=tk.Entry(Content_frame,bg="#121212", relief="flat",
-                          insertbackground="#fff",selectbackground="#0764d4"
-                          ,width=20,foreground="#d1d1d1")
-         IpMin_entry['font']=font.Font(family="Consolas",size=15)
-         IpMax_entry=tk.Entry(Content_frame,bg="#121212", relief="flat",
-                          insertbackground="#fff",selectbackground="#0764d4"
-                          ,width=20,foreground="#d1d1d1")
-         IpMax_entry['font']=font.Font(family="Consolas",size=15)
-         Ip_button=tk.Button(Content_frame,bg="#37373d",text="Ping",
-                            foreground="#d1d1d1",width=10,relief="flat",
-                            activebackground="#373742",bd=0,
-                            activeforeground="#d1d1d1",
-                            command=lambda:Click())
-         Ip_button['font']=font.Font(family="Consolas",size=10)
-         space_2=tk.Label(Content_frame,height=3,bg="#1e1e1e")
-         ResultBox=scrolledtext.ScrolledText(Content_frame,height=12,
-                                             width=50,bg="#121212",
-                            relief="flat",foreground="#d1d1d1")
-         ResultBox['font']=font.Font(family="Consolas",size=15)
-         version=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                         text="v1.0.0")
-         version['font']=font.Font(family="Consolas",size=15)
-         IpMin_label.grid(row=2,column=0,sticky="E",pady=10)
-         IpMax_label.grid(row=3,column=0,sticky="E")
-         space_1.grid(row=1,column=0)
-         Name_option.grid(row=0,column=0)
-         IpMin_entry.grid(row=2,column=1,sticky="E",padx=50,columnspan=3)
-         IpMax_entry.grid(row=3,column=1,sticky="E",padx=50,columnspan=3)
-         Ip_button.grid(row=4,column=3,pady=10,sticky="e",padx=50)
-         ResultBox.grid(row=6,column=0,columnspan=4,sticky="e", padx=55)
-         version.grid(row=7,column=4,pady=14,padx=44)
-         ResultBox.config(state="disabled")
-         space_2.grid(row=5,column=1)
-         Ip_button.bind("<Enter>", on_enter4)
-         Ip_button.bind("<Leave>", on_leave4)         
+        Frame.Iprange()
 
     elif number=="3":
-         Option_3.config(bg="#094771")
-         Option_1.config(bg="#252526")
-         Option_2.config(bg="#252526")
-         def Click(option):
-             ResultBox.config(state="normal")
-             ResultBox.delete('1.0',tk.END)
-             if option=="1":
-                 try:
-                     dic_port = pc.port_finder(Ip_entry.get(), int(PortMin_entry.get()), int(PortMax_entry.get()))
-                     ResultBox.insert(tk.INSERT,("<<<Scan Port Result>>>\n"))
-                     for x, y in dic_port.items():
-                         outcome = "Port: "+str(x)+" Outcome: "+str(y)+"\n"
-                         ResultBox.insert(tk.INSERT,(outcome))
-                 except:
-                     tk.messagebox.showerror(title="PORT FINDER FAILURE", message="ERROR: Not allowed values")
-                 ResultBox.config(state="disable")
-             else:
-                 try:
-                     ResultBox.insert(tk.INSERT,(pc.get_banner(Ip_entry.get(), int(PortBanner_entry.get()))))
-                 except:
-                     tk.messagebox.showerror(title="PORT FINDER FAILURE", message="ERROR: Not allowed values")
-                 ResultBox.config(state="disable")
-         def on_enter4(e):
-             Ip_button['background'] = '#404047'
-         def on_leave4(e):
-             Ip_button['background'] = '#37373d'
-         def on_enter5(e):
-             Banner_button['background'] = '#404047'
-         def on_leave5(e):
-             Banner_button['background'] = '#37373d'
-
-         for widget in Content_frame.winfo_children():
+        Menu.Option1.self.config(bg="#252526")
+        Menu.Option2.self.config(bg="#252526")
+        Menu.Option3.self.config(bg="#094771")
+        Menu.Option4.self.config(bg="#252526")
+        for widget in Frame.frame.winfo_children():
             widget.destroy()
-         Name_option=tk.Label(Content_frame, text="PORT FINDER  ",bg="#1e1e1e",
-                    foreground="#3179cb",padx=30,pady=10)
-         Name_option.grid_propagate(False)
-         Name_option['font']=font.Font(family="Consolas",size=40)
-         space_1=tk.Label(Content_frame,height=1,bg="#1e1e1e")
-         Ip_label=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                         text="Enter an ip address:")
-         Ip_label['font']=font.Font(family="Consolas",size=15)
-         PortMin_label=tk.Label(Content_frame,bg="#1e1e1e",
-                        foreground="#d1d1d1",text="Enter a minium port:")
-         PortMin_label['font']=font.Font(family="Consolas",size=15)
-         PortMax_label=tk.Label(Content_frame,bg="#1e1e1e",
-                         foreground="#d1d1d1",text="Enter a maximum port:")
-         PortMax_label['font']=font.Font(family="Consolas",size=15)
-         PortBanner_label=tk.Label(Content_frame,bg="#1e1e1e",
-                     foreground="#d1d1d1",text="Get the banner of the port:")
-         PortBanner_label['font']=font.Font(family="Consolas",size=15)
-         Ip_entry=tk.Entry(Content_frame,bg="#121212", relief="flat",
-                          insertbackground="#fff",selectbackground="#0764d4"
-                          ,width=20,foreground="#d1d1d1")
-         Ip_entry['font']=font.Font(family="Consolas",size=15)
-         PortMin_entry=tk.Entry(Content_frame,bg="#121212", relief="flat",
-                          insertbackground="#fff",selectbackground="#0764d4"
-                          ,width=20,foreground="#d1d1d1")
-         PortMin_entry['font']=font.Font(family="Consolas",size=15)
-         PortMax_entry=tk.Entry(Content_frame,bg="#121212", relief="flat",
-                          insertbackground="#fff",selectbackground="#0764d4"
-                          ,width=20,foreground="#d1d1d1")
-         PortMax_entry['font']=font.Font(family="Consolas",size=15)
-         PortBanner_entry=tk.Entry(Content_frame,bg="#121212", relief="flat",
-                          insertbackground="#fff",selectbackground="#0764d4"
-                          ,width=20,foreground="#d1d1d1")
-         PortBanner_entry['font']=font.Font(family="Consolas",size=15)
-         Ip_button=tk.Button(Content_frame,bg="#37373d",text="Get Ports",
-                            foreground="#d1d1d1",width=10,relief="flat",
-                            activebackground="#373742",bd=0,
-                            activeforeground="#d1d1d1",
-                            command=lambda:Click("1"))
-         Ip_button['font']=font.Font(family="Consolas",size=10)
-         Banner_button=tk.Button(Content_frame,bg="#37373d",text="Get Banner",
-                            foreground="#d1d1d1",width=10,relief="flat",
-                            activebackground="#373742",bd=0,
-                            activeforeground="#d1d1d1",
-                            command=lambda:Click("2"))
-         Banner_button['font']=font.Font(family="Consolas",size=10)
-         space_2=tk.Label(Content_frame,height=1,bg="#1e1e1e")
-         ResultBox=scrolledtext.ScrolledText(Content_frame,
-                            height=18,width=80,bg="#121212",
-                            relief="flat",foreground="#d1d1d1")
-         ResultBox['font']=font.Font(family="Consolas",size=10)
-         version=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                         text="v1.0.0")
-         version['font']=font.Font(family="Consolas",size=15)
-         Ip_label.grid(row=2,column=0,sticky="E")
-         PortMin_label.grid(row=3,column=0,sticky="E",pady=10)
-         PortMax_label.grid(row=4,column=0,sticky="E")
-         PortBanner_label.grid(row=6,column=0,sticky="E")
-         space_1.grid(row=1,column=0)
-         Name_option.grid(row=0,column=0)
-         Ip_entry.grid(row=2,column=1,sticky="E",padx=50,columnspan=3)
-         PortMin_entry.grid(row=3,column=1,sticky="E",padx=50,columnspan=3)
-         PortMax_entry.grid(row=4,column=1,sticky="E",padx=50,columnspan=3)
-         PortBanner_entry.grid(row=6,column=1,sticky="E",padx=50,columnspan=3)
-         Banner_button.grid(row=7,column=3,pady=10,sticky="e",padx=50)
-         Ip_button.grid(row=5,column=3,pady=10,sticky="e",padx=50)
-         ResultBox.grid(row=9,column=0,columnspan=4,sticky="e", padx=55)
-         version.grid(row=10,column=4,pady=12,padx=44)
-
-         space_2.grid(row=8,column=1)
-
-         
-         Ip_button.bind("<Enter>", on_enter4)
-         Ip_button.bind("<Leave>", on_leave4)
-         Banner_button.bind("<Enter>", on_enter5)
-         Banner_button.bind("<Leave>", on_leave5)
-
-
+        Frame.Portfinder()
 
     elif number=="4":
-         Option_1.config(bg="#252526")
-         Option_2.config(bg="#252526")
-         Option_3.config(bg="#252526")
-         for widget in Content_frame.winfo_children():
+        Menu.Option1.self.config(bg="#252526")
+        Menu.Option2.self.config(bg="#252526")
+        Menu.Option3.self.config(bg="#252526")
+        Menu.Option4.self.config(bg="#094771")
+        for widget in Frame.frame.winfo_children():
             widget.destroy()
+        Frame.Getbanner()
 
-         Nombre_app1=tk.Label(Content_frame, text="TLATLACAANA",bg="#1e1e1e",
-                            foreground="#3179cb")
-         Nombre_app1['font']=font.Font(family="Consolas",size=40)
-         Nombre_app2=tk.Label(Content_frame, text="ApPlIcAtIoN",bg="#1e1e1e",
-                            foreground="#3179cb")
-         Nombre_app2['font']=font.Font(family="Consolas",size=10)
-         label1=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                        text="“Software focused on the recognition phase of a "+ 
-                        "computer security audit”")
-         label1['font']=font.Font(family="Consolas",size=15)
-         label2=tk.Label(Content_frame,bg="#1e1e1e",foreground="#3179cb",
-                                text="Coded by:")
-         label2['font']=font.Font(family="Consolas",size=15)
-         label3=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                                text="Roberto (Tank3) Cruz Lozano.")
-         label3['font']=font.Font(family="Consolas",size=15)
-         label4=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                                text="Ernesto Adán (Neto844) Zurbía Flores Vivero.")
-         label4['font']=font.Font(family="Consolas",size=15)
-         label5=tk.Label(Content_frame,bg="#1e1e1e",foreground="#3179cb",
-                                text="Summary:")
-         label5['font']=font.Font(family="Consolas",size=15)
-         Summary=tk.Text(Content_frame,height=12,width=61,bg="#1e1e1e",
-                        relief="flat",foreground="#d1d1d1")
-         Summary['font']=font.Font(family="Consolas",size=15)
-         version=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                                text="v1.0.0")
-         version['font']=font.Font(family="Consolas",size=15)
-         Nombre_app1.grid(row=0,column=0)
-         Nombre_app2.grid(row=0,column=0, sticky="SE",padx=190)
-         label1.grid(row=1,column=0,padx=10,pady=20)
-         label2.grid(row=2,column=0,padx=100,sticky="W")
-         label3.grid(row=3,column=0,padx=130,sticky="W",pady=20)
-         label4.grid(row=4,column=0,padx=130,sticky="W")
-         label5.grid(row=5,column=0,padx=100,sticky="W",pady=20)
-         version.grid(row=7,column=1,sticky="W",pady=20)
-         Summary.grid(row=6,column=0,sticky="E")
-         Summary.insert(tk.INSERT,"The project presented here seeks to be a friendly"+
-                    "tool with \nthe trained user, capable of doing IP and port"+
-                    " recognition. \nIn the recognition phase of a computer "+
-                    "security audit, we \nfind very useful and powerful tools, "+
-                    "but not very friendly, \nthat is why our project focuses on "+
-                    "bringing a useful and \neasy-to-use tool kit for the user as "+
-                    "well as having an \ninterface in which all the tools and "+
-                    "information obtained \nwill be displayed.")
-         Summary.config(state="disabled")
+    elif number=="5":
+        Menu.Option1.self.config(bg="#252526")
+        Menu.Option2.self.config(bg="#252526")
+        Menu.Option3.self.config(bg="#252526")
+        Menu.Option4.self.config(bg="#252526")
+        for widget in Frame.frame.winfo_children():
+            widget.destroy()
+        Frame.show()
+    elif number=="6":
+        Menu.Result.self.config(state="normal")
+        Menu.Result.self.delete('1.0',tk.END)
+        Menu.Result.self.insert(tk.INSERT,pc.dns_to_ip(Menu.DNS_Entry.self.get()))
+        Menu.Result.self.config(state="disabled")
+    elif number=="7":
+        Frame.Result.self.config(state="normal")
+        Frame.Result.self.delete('1.0',tk.END)
+        Ping=pc.test_connection(Frame.IpEntry.self.get())
+        if Ping==True:
+            Frame.Result.self.insert(tk.INSERT,"The ip address has"+
+                " responded successfully")
+            Frame.Result.self.config(state="disabled")
+        elif Ping==False:
+            Frame.Result.self.insert(tk.INSERT,"The ip address did not"+
+                " respond, try another ip \naddress")
+            Frame.Result.self.config(state="disabled")
+
+    elif number=="8":
+        Frame.Result.self.config(state="normal")
+        Ping=pc.trace_connection(Frame.IpEntry.self.get())
+        Frame.Result.self.delete('1.0',tk.END)
+        Frame.Result.self.insert(tk.INSERT,Ping)
+        Frame.Result.self.config(state="disabled")
     
-    elif number == "5":
-        try:
-            IpResult.config(state="normal")
-            IpResult.delete('1.0',tk.END)
-            IpResult.insert(tk.INSERT,pc.dns_to_ip(DNS_entry.get()))
-            IpResult.config(state="disabled")
-        except:
-            tk.messagebox.showerror(title="DNS INCORRECT",
-                                    message="The domain"+
-                                    "name is incorrect "+
-                                    "please enter a new dns")
-    else:
-        return
+    elif number=="9":
+        Frame.Result.self.config(state="normal")
+        Frame.Result.self.delete('1.0',tk.END)
+        range_ip = pc.inquire_ip(Frame.MinEntry.self.get(),Frame.MaxEntry.self.get())
+        Frame.Result.self.insert(tk.INSERT,("<<IP scan result>>\n"))
+        for x, y in range_ip.items():
+            outcome = "IP: "+str(x)+" Outcome: "+str(y)+"\n"
+            Frame.Result.self.insert(tk.INSERT,(outcome))
+        Frame.Result.self.config(state="disabled")
 
-root = tk.Tk() ##Create the window
-root.title("Beta Aplication") ## Title of the window
-root.geometry("1200x700")
-root.resizable(0,0)
-root.bind("<Map>", on_deiconify)
-root.overrideredirect(True)
+    elif number=="10":
+        Frame.Result.self.config(state="normal")
+        Frame.Result.self.delete('1.0',tk.END)
+        dic_port = pc.port_finder(Frame.IpEntry.self.get(), int(Frame.MinEntry.self.get()), int(Frame.MaxEntry.self.get()))
+        Frame.Result.self.insert(tk.INSERT,("<<<Scan Port Result>>>\n"))
+        for x, y in dic_port.items():
+            outcome = "Port: "+str(x)+" Outcome: "+str(y)+"\n"
+            Frame.Result.self.insert(tk.INSERT,(outcome))
+        Frame.Result.self.config(state="disabled")
 
-##################################MENU#########################################
-Menu= tk.LabelFrame(root,bg="#252526",
-                    width=300,height=700,bd=0)
-Menu.grid(row=1,column=0,sticky="nw")
-Menu.grid_propagate(False)
-Option_1= tk.Button(Menu,text=" IP SCANER  ", bd=0, height=3, 
-                  width=10,command=lambda :ClickButton("1"))
-photo_option_1 = tk.PhotoImage(file=(os.path.dirname(__file__)+"/Scan.png")) 
-photo_option_1 = photo_option_1.subsample(8,6) 
-Option_1.config(image=photo_option_1, width=300,height=100, compound="left")
-Option_1['font']=font.Font(family="Consolas",size=25)
+    elif number=="11":
+        Frame.Result.self.config(state="normal")
+        Frame.Result.self.insert(tk.INSERT,(pc.get_banner(Frame.IpEntry.self.get(), int(Frame.BannerEntry.self.get()))))
+        Frame.Result.self.config(state="disabled")
 
-Option_2= tk.Button(Menu,text="  IP RANGE   ", bd=0, height=3, 
-                  width=10,command=lambda :ClickButton("2"))
-photo_option_2 = tk.PhotoImage(file=(os.path.dirname(__file__)+"/Iprange.png")) 
-photo_option_2 = photo_option_2.subsample(10,10) 
-Option_2.config(image=photo_option_2, width=300,height=100, compound="left")
-Option_2['font']=font.Font(family="Consolas",size=25)
+class Button():
+    def __init__(self,place,text,row,column,columnspan,sticky="n",padx=0,pady=0):
+        self.place=place
+        self.text=text
+        self.row=row
+        self.column=column
+        self.columnspan=columnspan
+        self.sticky=sticky
+        self.padx=padx
+        self.pady=pady
+    def menu(self):
+        self.self=tk.Button(self.place,text=self.text, bd=0,foreground="#d1d1d1", 
+                  bg="#252526",cursor="hand2",activebackground="#373742",
+                  activeforeground="#d1d1d1",width=17,height=2)
+        self.self['font']=font.Font(family="Consolas",size=25)
+        self.self.grid(row=self.row,column=self.column,columnspan=self.columnspan)
+    def funcionality(self):
+        self.self=tk.Button(self.place,text=self.text, bd=0,foreground="#d1d1d1", 
+                  bg="#37373d",cursor="hand2",activebackground="#373742",
+                  activeforeground="#d1d1d1",width=10)
+        self.self['font']=font.Font(family="Consolas",size=10)
+        self.self.grid(row=self.row,column=self.column,columnspan=self.columnspan,sticky=self.sticky,padx=self.padx,pady=self.pady)
+    def topbar(self,color):
+        self.color=color
+        self.self=tk.Button(self.place,bg="#333333", text=self.text, foreground="#d1d1d1"
+                ,height=1,width=5,relief="flat",activebackground=self.color,
+                bd=0,activeforeground="#fff")
+        self.self['font']=font.Font(family="Consolas",size=15)
+        self.self.grid(row=self.row,column=self.column,columnspan=self.columnspan,sticky=self.sticky,padx=self.padx)
 
-Option_3= tk.Button(Menu,text=" PORT FINDER", bd=0, height=3, 
-                  width=10, anchor="w",command=lambda :ClickButton("3"))
-photo_option_3 = tk.PhotoImage(file=(os.path.dirname(__file__)+"/Port_finder.png")) 
-photo_option_3 = photo_option_3.subsample(4,4) 
-Option_3.config(image=photo_option_3, width=300,height=100, compound="left")
-Option_3['font']=font.Font(family="Consolas",size=25)
+class Label():
 
-for widget in Menu.winfo_children():
-    widget.config(foreground="#d1d1d1", bg="#252526",cursor="hand2",
-                  activebackground="#373742",activeforeground="#d1d1d1")
+    def __init__(self,place,text,bg,foreground,height,size,row,column,columnspan,sticky="n",padx=0,pady=0):
+        self.place=place
+        self.text=text
+        self.bg=bg
+        self.foreground=foreground
+        self.height=height
+        self.size=size
+        self.row=row
+        self.column=column
+        self.columnspan=columnspan
+        self.sticky=sticky
+        self.padx=padx
+        self.pady=pady
+        self.self=tk.Label(self.place,bg=self.bg,foreground=self.foreground,
+                         text=self.text,height=self.height)
+        self.self['font']=font.Font(family="Consolas",size=self.size)
+        self.self.grid(row=self.row,column=self.column,columnspan=self.columnspan,sticky=self.sticky,padx=self.padx,pady=self.pady)
 
-space_1=tk.Label(Menu,height=15,bg="#252526")
-Converter_label=tk.Label(Menu,bg="#252526",foreground="#3179cb",
-                         text="DNS Converter")
-Converter_label['font']=font.Font(family="Consolas",size=15)
-DNS_label=tk.Label(Menu,bg="#252526",foreground="#d1d1d1",
-                         text="Enter a domain name:")
-DNS_label['font']=font.Font(family="Consolas",size=10)
-DNS_entry=tk.Entry(Menu,bg="#121212", relief="flat",
+class Entry():
+    def __init__(self,place,bg,width,size,row,column,columnspan,sticky="n",padx=0):
+        self.place=place
+        self.bg=bg
+        self.width=width
+        self.size=size
+        self.row=row
+        self.column=column
+        self.columnspan=columnspan
+        self.sticky=sticky
+        self.padx=padx
+        self.self=tk.Entry(self.place,bg=self.bg, relief="flat",
                           insertbackground="#fff",selectbackground="#0764d4"
-                          ,width=18,foreground="#d1d1d1")
-DNS_entry['font']=font.Font(family="Consolas",size=10)
-GetIp_button=tk.Button(Menu,bg="#37373d",text="Get Ip",
-                            foreground="#d1d1d1",width=10,relief="flat",
-                            activebackground="#373742",bd=0,
-                            activeforeground="#d1d1d1",
-                            command=lambda:ClickButton("5"))
-GetIp_button['font']=font.Font(family="Consolas",size=10)
-Ip_label=tk.Label(Menu,bg="#252526",foreground="#d1d1d1",
-                         text="Ip obtained: ")
-Ip_label['font']=font.Font(family="Consolas",size=10)
-IpResult=tk.Text(Menu,height=1,width=18,bg="#121212",
+                          ,width=self.width,foreground="#d1d1d1")
+        self.self['font']=font.Font(family="Consolas",size=self.size)
+        self.self.grid(row=self.row,column=self.column,columnspan=self.columnspan,sticky=self.sticky,padx=self.padx)
+
+class Text():
+    def __init__(self,place,height,width,bg,size,row,column,columnspan,sticky="n",padx=0):
+        self.place=place
+        self.bg=bg
+        self.width=width
+        self.height=height
+        self.size=size
+        self.row=row
+        self.column=column
+        self.columnspan=columnspan
+        self.sticky=sticky
+        self.padx=padx
+        self.self=tk.Text(self.place,height=self.height,width=self.width,bg=self.bg,
                             relief="flat",foreground="#d1d1d1")
-IpResult['font']=font.Font(family="Consolas",size=10)
-Option_1.grid(row=0,column=0,columnspan=2)
-Option_2.grid(row=1,column=0,columnspan=2)
-Option_3.grid(row=2,column=0,columnspan=2)
-space_1.grid(row=3,column=0,columnspan=2)
-Converter_label.grid(row=4,column=0,columnspan=2)
-DNS_label.grid(row=5,column=0,sticky="W",padx=5)
-DNS_entry.grid(row=5,column=1,sticky="W")
-GetIp_button.grid(row=6,column=1,sticky="e",pady=5, padx=10)
-Ip_label.grid(row=7,column=0,sticky="E",padx=5)
-IpResult.grid(row=7,column=1,sticky="w")
+        self.self['font']=font.Font(family="Consolas",size=self.size)
+        self.self.grid(row=self.row,column=self.column,columnspan=self.columnspan,sticky=self.sticky,padx=self.padx)
+        self.self.config(state="disabled")
 
-IpResult.config(state="disabled")
-
-Option_1.bind("<Enter>", on_enter)
-Option_1.bind("<Leave>", on_leave)
-Option_2.bind("<Enter>", on_enter1)
-Option_2.bind("<Leave>", on_leave1)
-Option_3.bind("<Enter>", on_enter2)
-Option_3.bind("<Leave>", on_leave2)
-GetIp_button.bind("<Enter>", on_enter3)
-GetIp_button.bind("<Leave>", on_leave3)
-
-##################################TOP_BAR######################################
-Top_bar= tk.LabelFrame(root,bg="#333333",
-                    width=1200,height=40,bd=0)
-Top_bar.grid(row=0,column=0, columnspan=2)
-Top_bar.columnconfigure(0,minsize=300)
-Top_bar.columnconfigure(1,minsize=900)
-X_button=tk.Button(Top_bar,bg="#333333", text="X", foreground="#d1d1d1"
-                ,height=1,width=5,relief="flat",activebackground="#f1707a",
-                bd=0,activeforeground="#fff",command=close)
-X_button['font']=font.Font(family="Consolas",size=15)
-min_button=tk.Button(Top_bar,bg="#333333", text="-", foreground="#d1d1d1"
-                ,height=1,width=5,relief="flat",activebackground="#424242",
-                bd=0,activeforeground="#fff",command=minimize)
-min_button['font']=font.Font(family="Consolas",size=15)
-app1=tk.Button(Top_bar, text="TLATLACAANA",bg="#333333",height=1,
-                    foreground="#d1d1d1",relief="flat",bd=0,
-                    activebackground="#333333",activeforeground="#d1d1d1",
-                    command=lambda:ClickButton("4"))
-app1['font']=font.Font(family="Consolas",size=15)
-Op_System=tk.Label(Top_bar,bg="#333333",foreground="#d1d1d1",
-                    text="Current OP System: ")
-Op_System['font']=font.Font(family="Consolas",size=10)
-Computer=tk.Label(Top_bar,bg="#333333",foreground="#d1d1d1",
-                         text="Computer Name:")
-Computer['font']=font.Font(family="Consolas",size=10)
-Op_System_entry=tk.Text(Top_bar,height=1,width=24,bg="#333333",
+class ResultBox():
+    def __init__(self,place,size,row,column,columnspan,sticky="n",padx=0):
+        self.place=place
+        self.size=size
+        self.row=row
+        self.column=column
+        self.columnspan=columnspan
+        self.sticky=sticky
+        self.padx=padx
+        self.self=scrolledtext.ScrolledText(self.place,height=20,width=80,bg="#121212",
                             relief="flat",foreground="#d1d1d1")
-Op_System_entry['font']=font.Font(family="Consolas",size=10)
-Computer_entry=tk.Text(Top_bar,height=1,width=24,bg="#333333",
-                            relief="flat",foreground="#d1d1d1")
-Computer_entry['font']=font.Font(family="Consolas",size=10)
-Top_bar.grid_propagate(False)
-X_button.grid(row=0,column=1,sticky="E")
-min_button.grid(row=0,column=1,sticky="E",padx=60)
-app1.grid(row=0,column=0,sticky="wn",pady=3)
-Op_System.grid(row=0,column=1,sticky="w")
-Op_System_entry.grid(row=0,column=1,sticky="w",padx=133)
-Computer_entry.grid(row=0,column=1,sticky="e",padx=200)
-Computer.grid(row=0,column=1,)
+        self.self['font']=font.Font(family="Consolas",size=self.size)
+        self.self.grid(row=self.row,column=self.column,columnspan=self.columnspan,sticky=self.sticky,padx=self.padx)
+        self.self.config(state="disabled")
 
-Op_System_entry.insert(tk.INSERT,pc.operating_system)
-Computer_entry.insert(tk.INSERT,pc.computer_name)
-Op_System_entry.config(state="disabled")
-Computer_entry.config(state="disabled")
 
-Top_bar.bind("<ButtonPress-1>",start_move)
-Top_bar.bind("<ButtonRelease-1>",stop_move)
-Top_bar.bind("<B1-Motion>",on_move)
-X_button.bind("<Enter>", on_enter4)
-X_button.bind("<Leave>", on_leave4)
-min_button.bind("<Enter>", on_enter5)
-min_button.bind("<Leave>", on_leave5)
-app1.bind("<ButtonPress-1>",start_move)
-app1.bind("<ButtonRelease-1>",stop_move)
-app1.bind("<B1-Motion>",on_move)
+class menu():
+    def __init__(self,place):
+        self.place=place
+    def show(self,DNS_Entry=None,Result=None,Option1=None,Option2=None,Option3=None,Option4=None):
+        self.DNS_Entry=DNS_Entry
+        self.Result=Result
+        self.Option1=Option1
+        self.Option2=Option2
+        self.Option3=Option3
+        self.Option4=Option4
+        Menu= tk.LabelFrame(self.place,bg="#252526",
+                width=300,height=700,bd=0)
+        Menu.grid(row=1,column=0,sticky="nw")
+        Menu.grid_propagate(False)
+        self.Option1=Button(Menu,"Ip Scanner",0,0,2)
+        self.Option1.menu()
+        self.Option1.self.config(command=lambda:ClickMenu("1"))
+        self.Option2=Button(Menu,"IP Range",1,0,2)
+        self.Option2.menu()
+        self.Option2.self.config(command=lambda:ClickMenu("2"))
+        self.Option3=Button(Menu,"Port Finder",2,0,2)
+        self.Option3.menu()
+        self.Option3.self.config(command=lambda:ClickMenu("3"))
+        self.Option4=Button(Menu,"Get Banner",3,0,2)
+        self.Option4.menu()
+        self.Option4.self.config(command=lambda:ClickMenu("4"))
+        Label(Menu,"","#252526","#ffffff",4,0,4,0,2)
+        Label(Menu,"DNS Converter","#252526","#3179cb",0,15,5,0,2)
+        Label(Menu,"Enter a domain name:","#252526","#d1d1d1",0,10,6,0,1,"w")
+        self.DNS_Entry=Entry(Menu,"#121212",18,10,6,1,1,"w")
+        IpButton=Button(Menu,"Get IP",7,1,1,"e",20,10)
+        IpButton.funcionality()
+        IpButton.self.config(command=lambda:ClickMenu("6"))
+        Label(Menu,"Ip Obtained:","#252526","#d1d1d1",0,10,8,0,1,"e",25)
+        self.Result=Text(Menu,1,18,"#121212",10,8,1,1,"w")
 
-Op_System.bind("<ButtonPress-1>",start_move)
-Op_System.bind("<ButtonRelease-1>",stop_move)
-Op_System.bind("<B1-Motion>",on_move)
+class TopBar():
+    def __init__(self,place):
+        self.place=place
+    def show(self,computer=None,opsystem=None):
+        self.computer=computer
+        self.opsystem=opsystem
+        Topbar= tk.LabelFrame(self.place,bg="#333333",
+                width=1200,height=40,bd=0)
+        Topbar.grid(row=0,column=0, columnspan=2)
+        Topbar.columnconfigure(0,minsize=300)
+        Topbar.columnconfigure(1,minsize=900)
+        Topbar.grid_propagate(False)
+        close=Button(Topbar,"X",0,1,1,"e")
+        close.topbar("#f1707a")
+        close.self.config(command=lambda: root.destroy())
+        minimize=Button(Topbar,"-",0,1,1,"e",60)
+        minimize.topbar("#ddd")
+        minimize.self.config(command=lambda:minimizewindow())
+        app=Button(Topbar,"TLATLACAANA",0,0,1,"wn",0,3)
+        app.topbar("#333333")
+        app.self.config(command=lambda:ClickMenu("5"))
+        app.self.config(width=0)
+        Label(Topbar,"Current OP System: ","#333333","#d1d1d1",0,10,0,1,1,"w")
+        Label(Topbar,"Computer Name:","#333333","#d1d1d1",0,10,0,1,1,"n",0,7)
+        self.computer=Text(Topbar,1,24,"#333333",10,0,1,1,"w",133)
+        self.opsystem=Text(Topbar,1,24,"#333333",10,0,1,1,"e",200)
+        Topbar.bind("<ButtonPress-1>",start_move)
+        Topbar.bind("<ButtonRelease-1>",stop_move)
+        Topbar.bind("<B1-Motion>",on_move)
+        for widget in Topbar.winfo_children():
+            widget.bind("<ButtonPress-1>",start_move)
+            widget.bind("<ButtonRelease-1>",stop_move)
+            widget.bind("<B1-Motion>",on_move)
 
-Op_System_entry.bind("<ButtonPress-1>",start_move)
-Op_System_entry.bind("<ButtonRelease-1>",stop_move)
-Op_System_entry.bind("<B1-Motion>",on_move)
-
-Computer.bind("<ButtonPress-1>",start_move)
-Computer.bind("<ButtonRelease-1>",stop_move)
-Computer.bind("<B1-Motion>",on_move)
-
-Computer_entry.bind("<ButtonPress-1>",start_move)
-Computer_entry.bind("<ButtonRelease-1>",stop_move)
-Computer_entry.bind("<B1-Motion>",on_move)
-
-##############################CONTENT_FRAME####################################
-Content_frame= tk.LabelFrame(root,width=900,height=700,bd=0,bg="#1e1e1e")
-Content_frame.grid_propagate(False)
-Content_frame.grid(row=1,column=1)
-Nombre_app1=tk.Label(Content_frame, text="TLATLACAANA",bg="#1e1e1e",
-                    foreground="#3179cb")
-Nombre_app1['font']=font.Font(family="Consolas",size=40)
-Nombre_app2=tk.Label(Content_frame, text="ApPlIcAtIoN",bg="#1e1e1e",
-                    foreground="#3179cb")
-Nombre_app2['font']=font.Font(family="Consolas",size=10)
-label1=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                text="“Software focused on the recognition phase of a "+ 
-                "computer security audit”")
-label1['font']=font.Font(family="Consolas",size=15)
-label2=tk.Label(Content_frame,bg="#1e1e1e",foreground="#3179cb",
-                         text="Coded by:")
-label2['font']=font.Font(family="Consolas",size=15)
-label3=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                         text="Roberto (Tank3) Cruz Lozano.")
-label3['font']=font.Font(family="Consolas",size=15)
-label4=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                         text="Ernesto Adán (Neto844) Zurbía Flores Vivero.")
-label4['font']=font.Font(family="Consolas",size=15)
-label5=tk.Label(Content_frame,bg="#1e1e1e",foreground="#3179cb",
-                         text="Summary:")
-label5['font']=font.Font(family="Consolas",size=15)
-Summary=tk.Text(Content_frame,height=12,width=61,bg="#1e1e1e",
-                 relief="flat",foreground="#d1d1d1")
-Summary['font']=font.Font(family="Consolas",size=15)
-version=tk.Label(Content_frame,bg="#1e1e1e",foreground="#d1d1d1",
-                         text="v1.0.0")
-version['font']=font.Font(family="Consolas",size=15)
-Nombre_app1.grid(row=0,column=0)
-Nombre_app2.grid(row=0,column=0, sticky="SE",padx=190)
-label1.grid(row=1,column=0,padx=10,pady=20)
-label2.grid(row=2,column=0,padx=100,sticky="W")
-label3.grid(row=3,column=0,padx=130,sticky="W",pady=20)
-label4.grid(row=4,column=0,padx=130,sticky="W")
-label5.grid(row=5,column=0,padx=100,sticky="W",pady=20)
-version.grid(row=7,column=1,sticky="W",pady=20)
-Summary.grid(row=6,column=0,sticky="E")
-Summary.insert(tk.INSERT,"The project presented here seeks to be a friendly"+
+class Content():
+    def __init__(self,place,frame=None):
+        self.place=place
+        self.frame=frame
+        self.frame=tk.LabelFrame(self.place,bg="#1e1e1e",
+                width=900,height=700,bd=0)
+    def show(self):
+        self.frame.grid_propagate(False)
+        self.frame.grid(row=1,column=1,sticky="nw")
+        Label(self.frame,"TLATLACAANA","#1e1e1e","#3179cb",0,40,0,0,1,"w",150,0)
+        Label(self.frame,"ApPlIcAtIoN","#1e1e1e","#3179cb",0,10,0,0,1,"SE",400)
+        Label(self.frame,"“Software focused on the recognition phase of a "+ 
+                "computer security audit”","#1e1e1e","#d1d1d1",0,15,1,0,1,"n",10,20)
+        Label(self.frame,"Coded by:","#1e1e1e","#3179cb",0,15,2,0,1,"w",100)
+        Label(self.frame,"Roberto (Tank3) Cruz Lozano","#1e1e1e","#d1d1d1",0,15,3,0,1,"w",130,20)
+        Label(self.frame,"Ernesto Adán (Neto844) Zurbía Flores Vivero.","#1e1e1e","#d1d1d1",0,15,4,0,1,"w",130)
+        Label(self.frame,"Summary:","#1e1e1e","#3179cb",0,15,5,0,1,"w",100,20)
+        Summary=Text(self.frame,12,61,"#1e1e1e",15,6,0,1,"E")
+        Summary.self.config(state="normal")
+        Summary.self.insert(tk.INSERT,"The project presented here seeks to be a friendly"+
               "tool with \nthe trained user, capable of doing IP and port"+
               " recognition. \nIn the recognition phase of a computer "+
               "security audit, we \nfind very useful and powerful tools, "+
@@ -673,6 +357,93 @@ Summary.insert(tk.INSERT,"The project presented here seeks to be a friendly"+
               "bringing a useful and \neasy-to-use tool kit for the user as "+
               "well as having an \ninterface in which all the tools and "+
               "information obtained \nwill be displayed.")
-Summary.config(state="disabled")
+        Summary.self.config(state="disabled")
+    def Ipscanner(self,IpEntry=None,Result=None):
+        self.IpEntry=IpEntry
+        self.Result=Result
+        Label(self.frame,"IP_SCANNER  ","#1e1e1e","#3179cb",0,40,0,0,1)
+        Label(self.frame,"","#1e1e1e","#1e1e1e",0,40,1,0,1)
+        Label(self.frame,"Enter an ip address:","#1e1e1e","#d1d1d1",0,15,2,0,1,"e")
+        self.IpEntry=Entry(self.frame,"#121212",20,15,2,1,3,"e",50)
+        Button1=Button(self.frame,"Trace Route",3,3,1,"w",10,10)
+        Button1.funcionality()
+        Button1.self.config(command=lambda:ClickMenu("8"))
+        Button2=Button(self.frame,"Ping",3,2,1,"e",5,10)
+        Button2.funcionality()
+        Button2.self.config(command=lambda:ClickMenu("7"))
+        self.Result=ResultBox(self.frame,10,5,0,4,"e",75)
+        Label(self.frame,"v1.0.0","#1e1e1e","#d1d1d1",0,15,6,5,1,"n",76,13)
+        Label(self.frame,"","#1e1e1e","#1e1e1e",4,0,4,1,1)
+        Button3=Button(self.frame,"Save",6,3,1,"w")
+        Button3.funcionality()
+    def Iprange(self,MinEntry=None,MaxEntry=None,Result=None):
+        self.MinEntry=MinEntry
+        self.MaxEntry=MaxEntry
+        self.Result=Result
+        Label(self.frame,"IP_RANGE     ","#1e1e1e","#3179cb",0,40,0,0,1)
+        Label(self.frame,"","#1e1e1e","#1e1e1e",2,0,1,0,1)
+        Label(self.frame,"Enter a minimum IP address:","#1e1e1e","#d1d1d1",0,15,2,0,1,"e",0,10)
+        Label(self.frame,"Enter a maximum IP address:","#1e1e1e","#d1d1d1",0,15,3,0,1,"e")
+        self.MinEntry=Entry(self.frame,"#121212",20,15,2,1,3,"e",50)
+        self.MaxEntry=Entry(self.frame,"#121212",20,15,3,1,3,"e",50)
+        Button1=Button(self.frame,"Ping",4,3,1,"e",50,10)
+        Button1.funcionality()
+        Button1.self.config(command=lambda:ClickMenu("9"))
+        Label(self.frame,"","#1e1e1e","#1e1e1e",2,0,5,1,1)
+        self.Result=ResultBox(self.frame,10,6,0,4,"e",75)
+        Label(self.frame,"v1.0.0","#1e1e1e","#d1d1d1",0,15,7,5,1,"n",76,13)
+        Button2=Button(self.frame,"Save",7,3,1,"e",70)
+        Button2.funcionality()
+    def Portfinder(self,IpEntry=None,MinEntry=None,MaxEntry=None,Result=None):
+        self.IpEntry=IpEntry
+        self.MinEntry=MinEntry
+        self.MaxEntry=MaxEntry
+        self.Result=Result
+        Label(self.frame,"PORT FINDER  ","#1e1e1e","#3179cb",0,40,0,0,1)
+        Label(self.frame,"","#1e1e1e","#1e1e1e",2,0,1,0,1)
+        Label(self.frame,"Enter an ip address:","#1e1e1e","#d1d1d1",0,15,2,0,1,"e")
+        Label(self.frame,"Enter a minium port:","#1e1e1e","#d1d1d1",0,15,3,0,1,"e",0,10)
+        Label(self.frame,"Enter a maximum port:","#1e1e1e","#d1d1d1",0,15,4,0,1,"e")
+        self.IpEntry=Entry(self.frame,"#121212",20,15,2,1,3,"e",50)
+        self.MinEntry=Entry(self.frame,"#121212",20,15,3,1,3,"e",50)
+        self.MaxEntry=Entry(self.frame,"#121212",20,15,4,1,3,"e",50)
+        Button1=Button(self.frame,"Get Ports",5,3,1,"e",50,10)
+        Button1.funcionality()
+        Button1.self.config(command=lambda:ClickMenu("10"))
+        Label(self.frame,"","#1e1e1e","#1e1e1e",1,0,6,1,1)
+        self.Result=ResultBox(self.frame,10,7,0,4,"e",75)
+        Label(self.frame,"v1.0.0","#1e1e1e","#d1d1d1",0,15,8,5,1,"n",76,13)
+        Button2=Button(self.frame,"Save",8,3,1,"e",70)
+        Button2.funcionality()
+    def Getbanner(self,IpEntry=None,BannerEntry=None,Result=None):
+        self.IpEntry=IpEntry
+        self.BannerEntry=BannerEntry
+        self.Result=Result
+        Label(self.frame,"Get Banner  ","#1e1e1e","#3179cb",0,40,0,0,1)
+        Label(self.frame,"","#1e1e1e","#1e1e1e",2,0,1,0,1)
+        Label(self.frame,"Enter an ip address:","#1e1e1e","#d1d1d1",0,15,2,0,1,"e",0,10)
+        Label(self.frame,"Get the banner of port:","#1e1e1e","#d1d1d1",0,15,3,0,1,"e")
+        self.IpEntry=Entry(self.frame,"#121212",20,15,2,1,3,"e",50)
+        self.BannerEntry=Entry(self.frame,"#121212",20,15,3,1,3,"e",50)
+        Button1=Button(self.frame,"Get Banner",4,3,1,"e",50,10)
+        Button1.funcionality()
+        Button1.self.config(command=lambda:ClickMenu("11"))
+        Label(self.frame,"","#1e1e1e","#1e1e1e",2,0,5,1,1)
+        self.Result=ResultBox(self.frame,10,6,0,4,"e",75)
+        Label(self.frame,"v1.0.0","#1e1e1e","#d1d1d1",0,15,7,5,1,"n",76,13)
+        Button2=Button(self.frame,"Save",7,3,1,"e",70)
+        Button2.funcionality()
 
-root.mainloop()
+if __name__ == "__main__":
+    root = tk.Tk()
+    root.geometry("1200x700")
+    root.resizable(0,0)
+    Topbar=TopBar(root)
+    Topbar.show()
+    Menu=menu(root)
+    Menu.show()
+    Frame=Content(root)
+    Frame.show()
+    root.bind("<Map>", on_deiconify)
+    root.overrideredirect(True)
+    root.mainloop()
