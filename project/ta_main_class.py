@@ -124,4 +124,3 @@ class TlatlacaanaApplication():
         else:
             banner = ">>>Destination port not accessible<<<"
         return banner
-################################################################################
